@@ -17,7 +17,7 @@ const {userId} = auth();
   return (
   <>
   <Header title={transformation.title} subtitle={transformation.subTitle} />
-  <TransformationForm action="Add" userId="snvhdsjkakjdvnchj"  type={transformation.type as TransformationTypeKey} creditBalance={10} />
+  <TransformationForm action="Add" userId={user._id}  type={transformation.type as TransformationTypeKey} creditBalance={user.creditBalance} />
   </>
   )
 }

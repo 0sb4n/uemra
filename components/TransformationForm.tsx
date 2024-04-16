@@ -38,9 +38,12 @@ import { AspectRatioKey } from "@/lib/utils"
 })
 
 
-const TransformationForm = ({action,data=null,userId, type, creditBalance}:TransformationFormProps) => {
+const TransformationForm = ({action,data=null,userId, type, creditBalance,config=null}:TransformationFormProps) => {
   const transformationType =  transformationTypes[type];
   const [image, setImage] = useState(data)
+  const [transforming, settransforming] = useState(false);
+  const [isSumbiting, setIsSumbiting] = useState(false);
+  const [transformationConfig, setTransformationConfig] = useState(config)
   const [newTransformation, setNewTransformation] = useState<Transformations | null >(null)
   const initialValues = data && action === "Update" ? {
     title: data?.title,
@@ -68,6 +71,9 @@ const TransformationForm = ({action,data=null,userId, type, creditBalance}:Trans
 const onInputChangeHandler=(fieldName:string,value:string, type:string,onChangeField:(value:string)=>void)=>{
 
 }
+ const onTransformHandler = ()=>{
+
+ }
   
   return (
     <section className="flex-1">
@@ -143,8 +149,10 @@ render={(({field})=>(
         )}  
         <div  className=" w-full flex gap-4 flex-col py-4">
 
-        <Button type="button" className="bg-pink-400 w-full rounded-full ">Transformations</Button>
-        <Button type="submit" className="bg-pink-700 w-full rounded-full ">Submit</Button>
+        <Button type="button" className="bg-pink-400 font-semibold text-white hover:bg-pink-600 w-full rounded-full "   onClick={onTransformHandler}>{
+transforming ? "Transforming..." : "Apply transformation"
+      } </Button>
+        <Button type="submit" disabled={isSumbiting} className="bg-pink-700 w-full hover:bg-pink-800 rounded-full ">Submit</Button>
         </div>
       </form>
     </Form>
