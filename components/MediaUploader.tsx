@@ -15,7 +15,7 @@ const MediaUploader = ({
   image,
   publicId,
   type
-}) => {
+}:MediaUploaderProps) => {
     const {toast} = useToast();
 const onUploadSuccessHandler=(result:any)=>{
   toast({
