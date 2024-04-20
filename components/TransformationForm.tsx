@@ -4,11 +4,11 @@ import { z } from "zod"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { useState } from "react"
+import { startTransition, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Form,
-  
+
 } from "@/components/ui/form"
 import {
   Select,
@@ -22,7 +22,9 @@ import { Input } from "@/components/ui/input"
 import { aspectRatioOptions, defaultValues } from "@/constants"
 import { CustomField } from "./CustomField"
 import { transformationTypes } from "@/constants"
-import { AspectRatioKey } from "@/lib/utils"
+import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
+import { updateCredits } from "@/lib/actions/user.actions"
+import MediaUploader from "./MediaUploader"
 
 
 
@@ -66,13 +68,39 @@ const TransformationForm = ({action,data=null,userId, type, creditBalance,config
     console.log(values)
   }
   const onSelectFieldHandler = (value:string,onChangeField:(value:string)=>void)=>{
-
+const imageSize=  aspectRatioOptions [value as AspectRatioKey]
+setImage((prevState :any)=>({
+  ...prevState,
+  aspectRatio:imageSize.aspectRatio,
+  width:imageSize.width,
+  height:imageSize.height,
+}
+))
+setNewTransformation(transformationType.config)
   }
 const onInputChangeHandler=(fieldName:string,value:string, type:string,onChangeField:(value:string)=>void)=>{
+  debounce(()=>{
+setNewTransformation((prevState :any)=>({
+  ...prevState ,[type]:{
+    ...prevState?.[type],
+  
+
+[fieldName === 'prompt' ? 'prompt' :'to']: value
+  }
+}))
+return onChangeField(value);
+  },1000);
 
 }
- const onTransformHandler = ()=>{
-
+ const onTransformHandler = async ()=>{
+  settransforming(true);
+  setTransformationConfig(
+    deepMergeObjects(newTransformation,transformationConfig)
+  )
+  setNewTransformation(null)
+  startTransition(async()=>{
+    // await updateCredits(userId,creditFee)
+  })
  }
   
   return (
@@ -147,12 +175,30 @@ render={(({field})=>(
 
           </div>
         )}  
+        <div className="media-uploader">
+          <CustomField
+          control={form.control}
+          name="publicId"
+          className="flex size-full flex-col "
+          render={({field})=>(
+            <MediaUploader 
+            onValueChange={field.onChange}
+            setImage={setImage}
+            publicId={field.value}
+            image={image}
+            type={type}
+            />
+          )}
+          />
+
+
+        </div>
         <div  className=" w-full flex gap-4 flex-col py-4">
 
         <Button type="button" className="bg-pink-400 font-semibold text-white hover:bg-pink-600 w-full rounded-full "   onClick={onTransformHandler}>{
 transforming ? "Transforming..." : "Apply transformation"
       } </Button>
-        <Button type="submit" disabled={isSumbiting} className="bg-pink-700 w-full hover:bg-pink-800 rounded-full ">Submit</Button>
+        <Button type="submit" disabled={isSumbiting} className="bg-pink-700 w-full hover:bg-pink-800 rounded-full py-4">Submit</Button>
         </div>
       </form>
     </Form>
