@@ -9,11 +9,11 @@ import User from '@/lib/database/models/user.model'
 
 
 const addPage = async ({params: {type }}: SearchParamProps) => {
-// const {userId} = auth();
+const {userId} = auth();
 // console.log(userId)
   const transformation = transformationTypes[type];
-//  if(!userId) redirect ('/sign-in')
-  // const user = await getUserById(userId); 
+ if(!userId) redirect ('/sign-in')
+  const user = await getUserById(userId); 
 
   return (
   <>
