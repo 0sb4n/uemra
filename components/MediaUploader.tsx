@@ -1,7 +1,11 @@
+"use client"
 import React from 'react'
 import { useToast } from './ui/use-toast'
-import {CldUploadWidget} from "next-cloudinary"
+import {CldImage, CldUploadWidget} from "next-cloudinary"
 import Image from 'next/image'
+import { dataUrl, getImageSize } from '@/lib/utils'
+// import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props'
+import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props'
 type MediaUploaderProps = {
   onValueChange: (value: string) => void,
   setImage:React.Dispatch<any>
@@ -18,6 +22,15 @@ const MediaUploader = ({
 }:MediaUploaderProps) => {
     const {toast} = useToast();
 const onUploadSuccessHandler=(result:any)=>{
+  setImage((prevState:any)=>({
+    ...prevState,
+    publicId: result?.info?.public_id,
+    width: result?.info?.width,
+    height: result?.info?.height,
+    secureUrl:result?.info?.secure_url
+
+  }))
+  onValueChange(result?.info?.public_Id);
   toast({
     title:"image Uploaded SuccessFully",
     description:"1 credit was deducted from your account",
@@ -46,14 +59,29 @@ onError={onUploadErrorHandler}
 >
 {({open})=>(
   <div className='flex flex-col gap-4 '>
-<h3 className='text-3xl font-bold text-pink-700'>Originel</h3>
-{publicId ? (<>HERE IS THE IMAGE</>) : (<div className='flex flex-col' onClick={()=>open()}>HERE IS NO IMAGE
-<div className=' flex items-center mt-4 justify-center flex-col lg:w-full md:w-[70%] p-4 h-32 rounded-md border-[1px] border-yellow-600 '><Image src="/assets/icons/add.svg" alt="add image" width={24} height={24}/>
-<p> click here to upload image</p>
+<h3 className='text-3xl font-bold text-pink-700'>Original</h3>
+{publicId ? (<>
+<div className='cursor-pointer overflow-hidden rounded-[10px]'>
+<CldImage 
+width={getImageSize(type,image,"width")}
+height={getImageSize(type,image,"height")}
+src={publicId}
+alt='image'
+sizes={"(max-width:767px),100vw, 50vw"}
+placeholder={dataUrl as PlaceholderValue}
+className='bg-red-400'/>
+
 </div>
+
+</>) : (
+<div className=' h-fit min-h-72 border-dashed border-2 rounded-[16px] flex flex-col justify-center items-center' onClick={()=>open()}>
+<div ><Image src="/assets/icons/add.svg" alt="add image" width={24} height={24}/>
+</div>
+<p> click here to upload image</p>
 </div> )}
   </div>
 )}
+
 </CldUploadWidget>
   )
 }

@@ -76,7 +76,9 @@ setImage((prevState :any)=>({
   height:imageSize.height,
 }
 ))
-setNewTransformation(transformationType.config)
+setNewTransformation(transformationType.config);
+
+return onChangeField(value)
   }
 const onInputChangeHandler=(fieldName:string,value:string, type:string,onChangeField:(value:string)=>void)=>{
   debounce(()=>{
@@ -123,8 +125,8 @@ className="w-full p-0"
 render={({field})=>(
 <Select onValueChange={(value)=>onSelectFieldHandler(value,field.onChange)} 
 value={field.value}>
-  <SelectTrigger className="Select-field w-[200px]">
-    <SelectValue placeholder="Select size"/>
+  <SelectTrigger className="Select-field w-[300px]">
+    <SelectValue placeholder="Select size" />
 
   </SelectTrigger>
   <SelectContent>
@@ -175,7 +177,7 @@ render={(({field})=>(
 
           </div>
         )}  
-        <div className="media-uploader">
+        <div className=" grid h-fit min-h-[200px] grid-cols-1 gap-5 py-4 md:grid-cols-2;">
           <CustomField
           control={form.control}
           name="publicId"
