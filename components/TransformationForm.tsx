@@ -106,7 +106,7 @@ return onChangeField(value);
  }
   
   return (
-    <section className="flex-1">
+    
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
    <CustomField 
@@ -146,14 +146,14 @@ value={field.value}>
 
    )}
         {(type==='remove' || type ==="recolor") && (
-          <div className="prompt-field">
+          <div className="flex flex-col gap-5 lg:flex-row lg:gap-2">
 <CustomField 
 control={form.control}
 name="prompt"
 formLabel={
   type === "remove" ? "object to remove" : "object to recolor"
 }
-className="w-full"
+className="w-[400px]"
 render={(({field})=>(
   <Input value={field.value}
    className="input-field" 
@@ -177,7 +177,7 @@ render={(({field})=>(
 
           </div>
         )}  
-        <div className=" grid h-fit min-h-[200px] grid-cols-1 gap-5 py-4 md:grid-cols-2;">
+        <div className=" grid h-fit min-h-[200px] grid-cols-1 gap-5 py-4 md:grid-cols-2">
           <CustomField
           control={form.control}
           name="publicId"
@@ -204,7 +204,7 @@ transforming ? "Transforming..." : "Apply transformation"
         </div>
       </form>
     </Form>
-   </section>
+   
   )
 }
 
