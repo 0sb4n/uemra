@@ -14,7 +14,7 @@ const layout = ({children}:{children:React.ReactNode}) => {
 
   
     <div className='apply max-w-5xl mx-auto px-5 md:px-10 w-full text-dark-400  font-normal text-[16px] leading-[140%]'>
-      {/* <HeadText/> */}
+      <HeadText/>
     {children }
     </div></div>
    <Toaster/>
