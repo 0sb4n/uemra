@@ -8,16 +8,16 @@ import { getUserById } from '@/lib/actions/user.actions'
 
 
 const addPage = async ({params: {type }}: SearchParamProps) => {
-const {userId} = auth();
+// const {userId} = auth();
 // // console.log(userId)
   const transformation = transformationTypes[type];
- if(!userId) redirect ('/sign-in')
-  const user = await getUserById(userId); 
+//  if(!userId) redirect ('/sign-in')
+  // const user = await getUserById(userId); 
 
   return (
   <>
   <Header title={transformation.title} subtitle={transformation.subTitle} />
-  <TransformationForm action="Add" userId="dncbjhckl"type={transformation.type as TransformationTypeKey} creditBalance={10} />
+  <TransformationForm action="Add" userId={"bvjklhvhj"} type={transformation.type as TransformationTypeKey} creditBalance={10} />
   </>
   )
 }

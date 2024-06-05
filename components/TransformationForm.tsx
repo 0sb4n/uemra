@@ -25,6 +25,7 @@ import { transformationTypes } from "@/constants"
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
 import { updateCredits } from "@/lib/actions/user.actions"
 import MediaUploader from "./MediaUploader"
+import TransformedImage from "./TransformedImage"
 
 
 
@@ -43,7 +44,7 @@ import MediaUploader from "./MediaUploader"
 const TransformationForm = ({action,data=null,userId, type, creditBalance,config=null}:TransformationFormProps) => {
   const transformationType =  transformationTypes[type];
   const [image, setImage] = useState(data)
-  const [transforming, settransforming] = useState(false);
+  const [transforming, setTransforming] = useState(false);
   const [isSumbiting, setIsSumbiting] = useState(false);
   const [transformationConfig, setTransformationConfig] = useState(config)
   const [newTransformation, setNewTransformation] = useState<Transformations | null >(null)
@@ -95,7 +96,7 @@ return onChangeField(value);
 
 }
  const onTransformHandler = async ()=>{
-  settransforming(true);
+  setTransforming(true);
   setTransformationConfig(
     deepMergeObjects(newTransformation,transformationConfig)
   )
@@ -192,6 +193,14 @@ render={(({field})=>(
             />
           )}
           />
+          <TransformedImage
+         image={image}
+         type={type}
+title={form.getValues().title}
+isTransforming={transforming}
+setIsTransforming={setTransforming}
+transformationConfig={transformationConfig}
+/>
 
 
         </div>

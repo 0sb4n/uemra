@@ -22,7 +22,7 @@ const Sidebar = () => {
     const  isActive = link.route === pathname;
     return(
       <li key={link.label} className={`flex items-center justify-center p-16-semibold w-full whitespace-nowrap rounded-full bg-cover  transition-all  hover:shadow-inner overflow-hidden  hover:border-[1px] hover:border-pink-400`}>
-        <Link href={link.route} className={`  font-semibold text-[16px] leading-[140%] flex size-full gap-4 p-[12px] ${isActive ? 'bg-pink-600  text-slate-200' : 'brightness-100 text-pink-600' } tracking-wider font-semibold hover:text-slate-400 `} >
+        <Link href={link.route} className={`  font-semibold text-[16px] leading-[140%] flex size-full gap-4 p-[12px] ${isActive ? 'bg-pink-600  text-slate-200 brightness-200' : 'brightness-100 text-pink-600' } tracking-wider font-semibold hover:text-slate-400 `} >
           <Image src={link.icon} alt="icon" height={20} width={20} />
           {link.label}
         </Link>
@@ -44,7 +44,7 @@ const Sidebar = () => {
     const  isActive = link.route === pathname;
     return(
       <li key={link.label} className={` flex items-center justify-center p-16-semibold w-full whitespace-nowrap rounded-full bg-cover  transition-all  hover:shadow-inner overflow-hidden  hover:border-[1px] hover:border-pink-400`}>
-      <Link href={link.route} className={`font-semibold text-[16px] leading-[140%] flex size-full gap-4 p-[12px] ${isActive ? 'bg-pink-600 text-slate-200' : ' text-pink-600' }  font-semibold`} >
+      <Link href={link.route} className={`font-semibold text-[16px] leading-[140%] flex size-full gap-4 p-[12px] ${isActive ? 'bg-pink-600 text-slate-200 brightness-200' : ' text-pink-600 brightness-100' }  font-semibold`} >
         <Image src={link.icon} alt="icon" height={20} width={20} className='brightness-120' />
         {link.label}
       </Link>
