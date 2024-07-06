@@ -45,7 +45,7 @@ onError={()=>{
 )}
                 </div>
             ):(
-                <div className='flex justify-center items-center font-medium text-[14px] leading-[120%] h-full min-h-72 flex-col gap-5 rounded-[16px] border border-dashed bg-purple-100/20 shadow-inner'>
+                <div className=' text-pink-600 text-lg flex justify-center items-center font-medium text-[14px] leading-[120%] h-full min-h-72 flex-col gap-5 rounded-[16px] border border-dashed bg-purple-100/20 shadow-inner'>
                 Transformed Image
 
                 </div>

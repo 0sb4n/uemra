@@ -1,4 +1,4 @@
-import { channel } from 'diagnostics_channel';
+// import { channel } from 'diagnostics_channel';
 import mongoose,{Mongoose} from 'mongoose';
 const mongodb_url =process.env.MONGODB_URL;
 interface MongooseConnection{
